@@ -9,7 +9,7 @@ class Events(ContentBase):
 
     classifier = "apps"
 
-    urlconf = "lcfi.apps.events.urls"
+    urlconf = "{{ project_name }}.apps.events.urls"
 
     hero_super_title = models.CharField(
         max_length=50,
