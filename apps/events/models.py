@@ -7,40 +7,35 @@ from django.template.defaultfilters import date
 
 class Events(ContentBase):
 
-    classifier = "apps"
+    classifier = 'apps'
+    urlconf = '{{ project_name }}.apps.events.urls'
 
-    urlconf = "{{ project_name }}.apps.events.urls"
-
-    hero_super_title = models.CharField(
-        max_length=50,
-        blank=True,
-        null=True,
-        help_text='This is the small text that is above the title, if this is left empty it will take the pages title'
-    )
-
-    hero_title = models.CharField(
-        max_length=200,
+    per_page = models.PositiveIntegerField(
+        'events per page',
+        default=10,
         blank=True,
         null=True
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.page.title
 
 
 class Category(models.Model):
+
     title = models.CharField(
         max_length=100,
     )
 
     class Meta:
-        verbose_name_plural = "categories"
+        verbose_name_plural = 'categories'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
 class Event(PageBase):
+
     page = models.ForeignKey(
         Events,
     )
@@ -48,12 +43,6 @@ class Event(PageBase):
     start_date = models.DateField()
 
     end_date = models.DateField()
-
-    key_info = models.TextField(
-        blank=True,
-        null=True,
-        help_text='This is the content that appears below the title in the hero'
-    )
 
     description = HtmlField()
 
@@ -63,15 +52,15 @@ class Event(PageBase):
     )
 
     class Meta:
-        ordering = ("start_date",)
+        ordering = ['start_date']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         if self.page:
-            return self.page.page.reverse("event_detail", kwargs={
-                "slug": self.slug,
+            return self.page.page.reverse('event_detail', kwargs={
+                'slug': self.slug,
             })
 
     def get_summary(self):

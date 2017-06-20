@@ -1,60 +1,11 @@
-{% extends 'base.html' %}
-{% import 'sections/macros/sections.html' as sections %}
-
-{% block content_outer %}
-  <div class="pg-Transition ani-Animation_Stagger" data-animation="FadeIn" data-time="250">
-    {{ super() }}
-  </div>
-{% endblock %}
-
-{% block content_above %}
-  {{ sections.landing_hero(
-      pages.current.content.hero_super_title if pages.current.content.hero_super_title else pages.current.title,
-    pages.current.content.hero_title
-  ) }}
-{% endblock %}
+{% extends "base.html" %}
 
 {% block main %}
-  <section class="pg-Section ani-Animation_Child">
-    <div class="lyt-Container">
-      <header class="pg-Section_Header">
-        <h2 class="pg-Section_Title">Events</h2>
-      </header>
-
-      <div class="pg-Section_Body">
-        <ul class="lst-Media">
-          {% for event in event_list %}
-            <li class="lst-Media_Item">
-              <article class="lst-Media_Article">
-                <a class="lst-Media_ArticleLink" href="{{ event.get_absolute_url() }}">
-                  <picture class="lst-Media_Picture">
-                    {% if event.image %}
-                    <img alt=""
-                         src="{{ thumbnail(event.image.file, '320x200').url }}"
-                         class="lst-Media_Image">
-                    {% else %}
-                      <img alt=""
-                           src="{{ static('fallbacks/events.jpg') }}"
-                           class="lst-Media_Image">
-                    {% endif %}
-                  </picture>
-
-                  <div class="lst-Media_Body">
-                    <h3 class="lst-Media_Title">{{ event.title }}</h3>
-                    <time class="lst-Media_Text">{{ event.date }}</time>
-
-                    <p class="lst-Media_Link">Read more</p>
-                  </div>
-                </a>
-              </article>
-            </li>
-          {% else %}
-            <li class="lst-Media_Item">
-              <p>There are currently no events</p>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  </section>
+  <ul>
+    {% for event in event_list %}
+      <li>{{ event }}</li>
+    {% else %}
+      <li>No events</li>
+    {% endfor %}
+  </ul>
 {% endblock %}

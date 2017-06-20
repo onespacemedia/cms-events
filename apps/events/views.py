@@ -13,7 +13,7 @@ class EventListView(ListView):
 
         return qs.filter(
             page__page=self.request.pages.current,
-            end_date__gte=now
+            end_date__gte=now()
         )
 
 
