@@ -4,7 +4,7 @@ from watson import search as watson
 
 
 class EventsConfig(AppConfig):
-    name = 'events'
+    name = '{{ project_name }}.apps.events'
 
     def ready(self):
         Event = self.get_model('Event')
