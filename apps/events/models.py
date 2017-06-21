@@ -1,8 +1,10 @@
+from cms import sitemaps
 from cms.apps.media.models import ImageRefField
 from cms.apps.pages.models import ContentBase, PageBase
 from cms.models import HtmlField
 from django.db import models
 from django.template.defaultfilters import date
+from historylinks import shortcuts as historylinks
 
 
 class Events(ContentBase):
@@ -74,3 +76,6 @@ class Event(PageBase):
             date_string += ' - {}'.format(date(self.end_date, 'j F Y'))
 
         return date_string
+
+historylinks.register(Event)
+sitemaps.register(Event)
